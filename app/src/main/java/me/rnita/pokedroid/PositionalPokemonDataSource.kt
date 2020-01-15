@@ -1,6 +1,6 @@
 package me.rnita.pokedroid
 
-import android.arch.paging.PositionalDataSource
+import androidx.paging.PositionalDataSource
 import io.reactivex.rxkotlin.subscribeBy
 import timber.log.Timber
 

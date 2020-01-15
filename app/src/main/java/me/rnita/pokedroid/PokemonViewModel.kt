@@ -1,8 +1,8 @@
 package me.rnita.pokedroid
 
-import android.arch.lifecycle.ViewModel
-import android.arch.paging.PagedList
-import android.arch.paging.RxPagedListBuilder
+import androidx.lifecycle.ViewModel
+import androidx.paging.PagedList
+import androidx.paging.RxPagedListBuilder
 import io.reactivex.BackpressureStrategy
 import io.reactivex.Flowable
 import io.reactivex.android.schedulers.AndroidSchedulers
