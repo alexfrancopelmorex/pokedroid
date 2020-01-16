@@ -1,4 +1,4 @@
-package me.rnita.pokedroid
+package pokedroid.data
 
 import androidx.paging.DataSource
 

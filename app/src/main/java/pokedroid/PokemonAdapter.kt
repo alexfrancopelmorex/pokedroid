@@ -1,4 +1,4 @@
-package me.rnita.pokedroid
+package pokedroid
 
 import android.view.LayoutInflater
 import android.view.View

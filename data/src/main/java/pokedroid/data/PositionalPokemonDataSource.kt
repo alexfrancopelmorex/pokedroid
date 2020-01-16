@@ -1,4 +1,4 @@
-package me.rnita.pokedroid
+package pokedroid.data
 
 import androidx.paging.PositionalDataSource
 import io.reactivex.rxkotlin.subscribeBy
@@ -11,7 +11,7 @@ class PositionalPokemonDataSource(
         apiClient.getPokemons(params.loadSize + params.startPosition)
             .subscribeBy(
                 onSuccess = {
-                    callback.onResult(it.pokemons() ?: emptyList())
+                    callback.onResult(it.pokemons ?: emptyList())
                 },
                 onError = {
                     Timber.d(it)
@@ -23,8 +23,7 @@ class PositionalPokemonDataSource(
         apiClient.getPokemons(params.requestedLoadSize)
             .subscribeBy(
                 onSuccess = {
-                    callback.onResult(it.pokemons()
-                        ?: emptyList(), params.requestedLoadSize)
+                    callback.onResult(it.pokemons ?: emptyList(), params.requestedLoadSize)
                 },
                 onError = {
                     Timber.d(it)

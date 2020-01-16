@@ -1,4 +1,4 @@
-package me.rnita.pokedroid
+package pokedroid
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
