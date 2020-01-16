@@ -15,7 +15,7 @@ class ApiClient {
             .build()
 
     fun getPokemons(first: Int): Single<PokemonsQuery.Data> =
-            Rx2Apollo.from(apolloClient.query(PokemonsQuery.builder().first(first.toLong()).build()))
+            Rx2Apollo.from(apolloClient.query(PokemonsQuery.builder().first(first).build()))
                     .subscribeOn(Schedulers.io())
                     .map { it.toData() }
                     .singleOrError()

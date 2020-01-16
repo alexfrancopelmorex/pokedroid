@@ -1,8 +1,8 @@
 package me.rnita.pokedroid
 
-import androidx.lifecycle.ViewModelProviders
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.rxkotlin.addTo
@@ -26,12 +26,12 @@ class MainActivity : AppCompatActivity() {
 
         val viewModel = ViewModelProviders.of(this).get(PokemonViewModel::class.java)
         viewModel.pokemons.subscribeBy(
-                onNext = {
-                    adapter.submitList(it)
-                },
-                onError = {
-                    Timber.d(it)
-                }
+            onNext = {
+                adapter.submitList(it)
+            },
+            onError = {
+                Timber.d(it)
+            }
         ).addTo(disposables)
     }
 
