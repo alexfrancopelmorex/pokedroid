@@ -5,9 +5,9 @@ import androidx.paging.PagedList
 import androidx.paging.RxPagedListBuilder
 import io.reactivex.BackpressureStrategy
 import io.reactivex.Flowable
-import io.reactivex.android.schedulers.AndroidSchedulers
-import pokedroid.data.ApiClient
+import pokedroid.data.ApiHelper
 import pokedroid.data.PokemonDataSourceFactory
+import pokedroid.data.PokemonsQuery
 
 class PokemonViewModel : ViewModel() {
 
@@ -24,8 +24,7 @@ class PokemonViewModel : ViewModel() {
     val pokemons: Flowable<PagedList<PokemonsQuery.Pokemon>>
 
     init {
-        pokemons = RxPagedListBuilder(PokemonDataSourceFactory(ApiClient()), config)
-            .setFetchScheduler(AndroidSchedulers.mainThread())
+        pokemons = RxPagedListBuilder(PokemonDataSourceFactory(ApiHelper.apiFetcher), config)
             .buildFlowable(BackpressureStrategy.LATEST)
     }
 

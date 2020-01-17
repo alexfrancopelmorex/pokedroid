@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import kotlinx.android.synthetic.main.pokemon_view_holder.view.*
+import pokedroid.data.PokemonsQuery
 
 class PokemonAdapter : PagedListAdapter<PokemonsQuery.Pokemon, PokemonAdapter.PokemonViewHolder>(diffCallback) {
 

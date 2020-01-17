@@ -2,19 +2,11 @@ package pokedroid.data
 
 import com.apollographql.apollo.ApolloClient
 import com.apollographql.apollo.api.Input
-import com.apollographql.apollo.api.cache.http.HttpCachePolicy
 import com.apollographql.apollo.rx2.Rx2Apollo
 import io.reactivex.Single
 import io.reactivex.schedulers.Schedulers
-import okhttp3.OkHttpClient
 
-class ApiClient {
-    private val apolloClient = ApolloClient.builder()
-        .okHttpClient(OkHttpClient.Builder().build())
-        .defaultHttpCachePolicy(HttpCachePolicy.CACHE_FIRST)
-        .serverUrl("https://graphql-pokemon.now.sh")
-        .build()
-
+class PokemonApiFetcher(private val apolloClient: ApolloClient) {
     fun getPokemons(first: Int): Single<PokemonsQuery.Data> =
         Rx2Apollo.from(apolloClient.query(PokemonsQuery(first)))
             .subscribeOn(Schedulers.io())

@@ -5,7 +5,7 @@ import io.reactivex.rxkotlin.subscribeBy
 import timber.log.Timber
 
 class PositionalPokemonDataSource(
-    private val apiClient: ApiClient
+    private val apiClient: PokemonApiFetcher
 ) : PositionalDataSource<PokemonsQuery.Pokemon>() {
     override fun loadRange(params: LoadRangeParams, callback: LoadRangeCallback<PokemonsQuery.Pokemon>) {
         apiClient.getPokemons(params.loadSize + params.startPosition)
