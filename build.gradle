@@ -17,6 +17,8 @@ buildscript {
     }
 }
 
+apply from: 'gradle/jacoco.gradle'
+
 allprojects {
     repositories {
         google()
