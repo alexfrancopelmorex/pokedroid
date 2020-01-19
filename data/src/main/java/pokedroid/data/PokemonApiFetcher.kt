@@ -1,25 +1,25 @@
 package pokedroid.data
 
-import com.apollographql.apollo.ApolloClient
 import com.apollographql.apollo.api.Input
-import com.apollographql.apollo.rx2.Rx2Apollo
 import io.reactivex.Single
 import io.reactivex.schedulers.Schedulers
 
-class PokemonApiFetcher(private val apolloClient: ApolloClient) {
+class PokemonApiFetcher(
+    private val apolloClient: RxApolloClient
+) {
     fun getPokemons(first: Int): Single<PokemonsQuery.Data> =
-        Rx2Apollo.from(apolloClient.query(PokemonsQuery(first)))
+        apolloClient.query(PokemonsQuery(first))
             .subscribeOn(Schedulers.io())
             .map { it.toData() }
             .singleOrError()
 
     fun getPokemon(id: String, name: String): Single<PokemonQuery.Data> =
-        Rx2Apollo.from(apolloClient.query(PokemonQuery(Input.fromNullable(id), Input.fromNullable(name))))
+        apolloClient.query(PokemonQuery(Input.fromNullable(id), Input.fromNullable(name)))
             .subscribeOn(Schedulers.io())
             .map { it.toData() }
             .singleOrError()
 
-    fun <T> com.apollographql.apollo.api.Response<T>.toData(): T =
+    private fun <T> com.apollographql.apollo.api.Response<T>.toData(): T =
         if (hasErrors()) throw ResponseException(errors())
         else data() ?: throw DataNullPointerException()
 

@@ -13,7 +13,9 @@ object ApiHelper {
             .build()
     }
 
+    private val rxClient by lazy { RxApolloClient(client) }
+
     val apiFetcher by lazy {
-        PokemonApiFetcher(client)
+        PokemonApiFetcher(rxClient)
     }
 }
