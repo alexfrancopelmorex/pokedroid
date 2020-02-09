@@ -15,7 +15,7 @@ class PokemonAdapter : PagedListAdapter<PokemonsQuery.Pokemon, PokemonAdapter.Po
     companion object {
         private val diffCallback = object : DiffUtil.ItemCallback<PokemonsQuery.Pokemon>() {
             override fun areItemsTheSame(oldItem: PokemonsQuery.Pokemon, newItem: PokemonsQuery.Pokemon): Boolean =
-                oldItem.__typename() == newItem.__typename()
+                oldItem.__typename == newItem.__typename
 
             override fun areContentsTheSame(oldItem: PokemonsQuery.Pokemon, newItem: PokemonsQuery.Pokemon): Boolean =
                 oldItem == newItem
@@ -28,10 +28,10 @@ class PokemonAdapter : PagedListAdapter<PokemonsQuery.Pokemon, PokemonAdapter.Po
         )
 
     override fun onBindViewHolder(holder: PokemonViewHolder, position: Int) {
-        val pokemon = getItem(position)?.fragments()?.pokemon()
+        val pokemon = getItem(position)?.fragments?.pokemon
         pokemon?.let {
-            Glide.with(holder.itemView.context).load(it.image()).into(holder.itemView.image)
-            holder.itemView.name_text.text = it.name()
+            Glide.with(holder.itemView.context).load(it.image).into(holder.itemView.image)
+            holder.itemView.name_text.text = it.name
         }
     }
 
