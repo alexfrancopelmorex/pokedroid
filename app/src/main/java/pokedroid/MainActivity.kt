@@ -2,42 +2,30 @@ package pokedroid
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import androidx.lifecycle.ViewModelProviders
-import androidx.recyclerview.widget.LinearLayoutManager
-import io.reactivex.disposables.CompositeDisposable
-import io.reactivex.rxkotlin.addTo
-import io.reactivex.rxkotlin.subscribeBy
+import com.bluelinelabs.conductor.Conductor
+import com.bluelinelabs.conductor.Router
+import com.bluelinelabs.conductor.RouterTransaction
 import kotlinx.android.synthetic.main.activity_main.*
-import timber.log.Timber
+
 
 class MainActivity : AppCompatActivity() {
 
-    private val adapter = PokemonAdapter()
-    private val disposables = CompositeDisposable()
-
+    private lateinit var router: Router
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        recycler_view.layoutManager = LinearLayoutManager(this)
-        recycler_view.setHasFixedSize(true)
-        recycler_view.adapter = adapter
-
-        val viewModel = ViewModelProviders.of(this).get(PokemonViewModel::class.java)
-        viewModel.pokemons.subscribeBy(
-            onNext = {
-                adapter.submitList(it)
-            },
-            onError = {
-                Timber.d(it)
-            }
-        ).addTo(disposables)
+        router = Conductor.attachRouter(this, container, savedInstanceState)
+        if (!router.hasRootController()) {
+            router.setRoot(RouterTransaction.with(MainController()))
+        }
     }
 
-    override fun onStop() {
-        super.onStop()
-        disposables.clear()
+    override fun onBackPressed() {
+        if (router.handleBack()) {
+            super.onBackPressed()
+        }
     }
 
 }
